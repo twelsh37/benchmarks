@@ -7,7 +7,8 @@
 # ═══════════════════════════════════════════════════════════════
 
 # Model to use as the judge (should be one of your more capable models)
-JUDGE_MODEL="llama3.3:latest"
+# Note: Using a smaller model to avoid memory issues when switching between test models
+JUDGE_MODEL="phi4:14b"
 
 # Models to benchmark
 MODELS=(
@@ -134,23 +135,76 @@ if ! command -v jq &> /dev/null; then
     exit 1
 fi
 
+# Function to sanitize text by removing problematic control characters
+# Keeps newlines (\n = 0x0A) and carriage returns (\r = 0x0D) but removes others
+sanitize_for_json() {
+    local text="$1"
+    # Remove control characters except newline (0x0A) and carriage return (0x0D)
+    # Then let jq handle the proper JSON escaping
+    printf '%s' "$text" | tr -d '\000-\011\013\014\016-\037'
+}
+
 # Function to call Ollama API
 ollama_generate() {
     local model="$1"
     local prompt="$2"
     local timeout="${3:-600}"
-    
-    # Escape the prompt for JSON
-    local escaped_prompt=$(echo "$prompt" | jq -Rs '.')
-    
+
+    # Escape the prompt for JSON using printf to preserve characters
+    # Use a temp file to avoid shell escaping issues with large prompts
+    local tmpfile=$(mktemp)
+    printf '%s' "$prompt" > "$tmpfile"
+    local escaped_prompt=$(jq -Rs '.' < "$tmpfile")
+    rm -f "$tmpfile"
+
     curl -s --max-time "$timeout" "$OLLAMA_URL" \
         -H "Content-Type: application/json" \
         -d "{\"model\": \"$model\", \"prompt\": $escaped_prompt, \"stream\": false}"
 }
 
-# Function to extract JSON value
+# Function to extract JSON value (with error suppression)
 json_get() {
-    echo "$1" | jq -r "$2 // empty"
+    local json="$1"
+    local query="$2"
+
+    # Return empty if input is empty
+    if [[ -z "$json" ]]; then
+        echo ""
+        return
+    fi
+
+    # Use a temp file to avoid issues with control characters in the JSON
+    local tmpfile=$(mktemp)
+    printf '%s' "$json" > "$tmpfile"
+    local result=$(jq -r "$query // empty" < "$tmpfile" 2>/dev/null)
+    rm -f "$tmpfile"
+
+    # Return the result (echo adds the newline needed for command substitution)
+    echo "$result"
+}
+
+# Function to check if Ollama response contains an error
+ollama_has_error() {
+    local response="$1"
+    if [[ -z "$response" ]]; then
+        return 0  # Empty response is an error
+    fi
+    # Check if the response contains an error field
+    local tmpfile=$(mktemp)
+    printf '%s' "$response" > "$tmpfile"
+    local error=$(jq -r '.error // empty' < "$tmpfile" 2>/dev/null)
+    rm -f "$tmpfile"
+    [[ -n "$error" ]]
+}
+
+# Function to get Ollama error message
+ollama_get_error() {
+    local response="$1"
+    local tmpfile=$(mktemp)
+    printf '%s' "$response" > "$tmpfile"
+    local error=$(jq -r '.error // "Unknown error"' < "$tmpfile" 2>/dev/null)
+    rm -f "$tmpfile"
+    echo "$error"
 }
 
 # Function to score with judge model
@@ -160,7 +214,10 @@ get_auto_score() {
     local expected_answer="$3"
     local scoring_criteria="$4"
     local model_response="$5"
-    
+
+    # Sanitize the model response to remove problematic control characters
+    local clean_response=$(sanitize_for_json "$model_response")
+
     local judge_prompt="You are an expert evaluator scoring an AI model's response. Be strict but fair.
 
 TASK: $test_name
@@ -176,7 +233,7 @@ $scoring_criteria
 
 MODEL'S RESPONSE TO EVALUATE:
 ---
-$model_response
+$clean_response
 ---
 
 Score the response on three dimensions. Be strict - only give 10 for truly excellent responses.
@@ -185,30 +242,74 @@ You MUST respond with ONLY a JSON object in this exact format, no other text:
 {\"correctness\": <1-10>, \"efficiency\": <1-10>, \"outcome\": <1-10>, \"reasoning\": \"<brief 1-2 sentence justification>\"}"
 
     local judge_response=$(ollama_generate "$JUDGE_MODEL" "$judge_prompt" 120)
+
+    # Check if Ollama returned an error
+    if ollama_has_error "$judge_response"; then
+        local error_msg=$(ollama_get_error "$judge_response")
+        printf '%s|%s|%s|%s|%s\n' "0" "0" "0" "Judge model error: $error_msg" "ERROR: $error_msg"
+        return
+    fi
+
     local judge_text=$(json_get "$judge_response" '.response')
-    
-    # Try to extract JSON from response
-    local json_match=$(echo "$judge_text" | grep -o '{[^{}]*"correctness"[^{}]*}' | head -1)
-    
+
+    # Check if judge response is empty
+    if [[ -z "$judge_text" ]]; then
+        printf '%s|%s|%s|%s|%s\n' "0" "0" "0" "Judge returned empty response" "Empty response from judge"
+        return
+    fi
+
+    # Try to extract JSON from response using a temp file to avoid control character issues
+    local tmpfile=$(mktemp)
+    printf '%s' "$judge_text" > "$tmpfile"
+    local json_match=$(grep -o '{[^{}]*"correctness"[^{}]*}' "$tmpfile" 2>/dev/null | head -1)
+    rm -f "$tmpfile"
+
     if [[ -n "$json_match" ]]; then
-        local correctness=$(echo "$json_match" | jq -r '.correctness // 0')
-        local efficiency=$(echo "$json_match" | jq -r '.efficiency // 0')
-        local outcome=$(echo "$json_match" | jq -r '.outcome // 0')
-        local reasoning=$(echo "$json_match" | jq -r '.reasoning // "No reasoning provided"')
-        
-        # Clamp values between 1 and 10
-        correctness=$((correctness < 1 ? 1 : (correctness > 10 ? 10 : correctness)))
-        efficiency=$((efficiency < 1 ? 1 : (efficiency > 10 ? 10 : efficiency)))
-        outcome=$((outcome < 1 ? 1 : (outcome > 10 ? 10 : outcome)))
-        
-        echo "$correctness|$efficiency|$outcome|$reasoning|$judge_text"
+        # Parse the JSON match using temp file to avoid issues
+        local tmpjson=$(mktemp)
+        printf '%s' "$json_match" > "$tmpjson"
+        local correctness=$(jq -r '.correctness // 0' < "$tmpjson" 2>/dev/null || echo "0")
+        local efficiency=$(jq -r '.efficiency // 0' < "$tmpjson" 2>/dev/null || echo "0")
+        local outcome=$(jq -r '.outcome // 0' < "$tmpjson" 2>/dev/null || echo "0")
+        local reasoning=$(jq -r '.reasoning // "No reasoning provided"' < "$tmpjson" 2>/dev/null || echo "No reasoning provided")
+        rm -f "$tmpjson"
+
+        # Ensure we have numeric values
+        [[ "$correctness" =~ ^[0-9]+$ ]] || correctness=0
+        [[ "$efficiency" =~ ^[0-9]+$ ]] || efficiency=0
+        [[ "$outcome" =~ ^[0-9]+$ ]] || outcome=0
+
+        # Clamp values between 1 and 10 (only if > 0)
+        if ((correctness > 0)); then
+            correctness=$((correctness < 1 ? 1 : (correctness > 10 ? 10 : correctness)))
+        fi
+        if ((efficiency > 0)); then
+            efficiency=$((efficiency < 1 ? 1 : (efficiency > 10 ? 10 : efficiency)))
+        fi
+        if ((outcome > 0)); then
+            outcome=$((outcome < 1 ? 1 : (outcome > 10 ? 10 : outcome)))
+        fi
+
+        # Sanitize reasoning for output (remove pipes and newlines)
+        reasoning=$(printf '%s' "$reasoning" | tr '|\n\r' '   ')
+        # Sanitize judge_text for output (remove pipes and newlines to work with IFS read)
+        local clean_judge=$(printf '%s' "$judge_text" | tr '|\n\r' '   ')
+
+        printf '%s|%s|%s|%s|%s\n' "$correctness" "$efficiency" "$outcome" "$reasoning" "$clean_judge"
     else
         # Fallback: try to extract any numbers
-        local numbers=($(echo "$judge_text" | grep -oE '\b([1-9]|10)\b' | head -3))
+        local tmpnum=$(mktemp)
+        printf '%s' "$judge_text" > "$tmpnum"
+        local numbers=($(grep -oE '\b([1-9]|10)\b' "$tmpnum" 2>/dev/null | head -3))
+        rm -f "$tmpnum"
+
+        # Sanitize judge_text for output (remove pipes and newlines to work with IFS read)
+        local clean_judge=$(printf '%s' "$judge_text" | tr '|\n\r' '   ')
+
         if [[ ${#numbers[@]} -ge 3 ]]; then
-            echo "${numbers[0]}|${numbers[1]}|${numbers[2]}|Extracted from non-JSON response|$judge_text"
+            printf '%s|%s|%s|%s|%s\n' "${numbers[0]}" "${numbers[1]}" "${numbers[2]}" "Extracted from non-JSON response" "$clean_judge"
         else
-            echo "0|0|0|Scoring failed - could not parse response|$judge_text"
+            printf '%s|%s|%s|%s|%s\n' "0" "0" "0" "Scoring failed - could not parse response" "$clean_judge"
         fi
     fi
 }
@@ -257,6 +358,40 @@ echo ""
 echo "${GRAY}Output directory: $OUTPUT_DIR${NC}"
 echo ""
 
+# Pre-flight check: verify judge model is available
+echo -n "${GRAY}Verifying judge model ($JUDGE_MODEL)...${NC}"
+JUDGE_CHECK=$(ollama_generate "$JUDGE_MODEL" "Say OK" 30)
+if ollama_has_error "$JUDGE_CHECK"; then
+    echo " ${RED}FAILED${NC}"
+    echo ""
+    JUDGE_ERROR=$(ollama_get_error "$JUDGE_CHECK")
+    echo "${RED}ERROR: Judge model '$JUDGE_MODEL' failed to respond.${NC}"
+    if [[ -n "$JUDGE_ERROR" ]]; then
+        echo "${RED}Reason: $JUDGE_ERROR${NC}"
+    else
+        echo "${RED}Reason: No response from Ollama (server may not be running)${NC}"
+    fi
+    echo ""
+    echo "Possible solutions:"
+    echo "  1. Restart Ollama: pkill ollama && ollama serve"
+    echo "  2. Pull the model: ollama pull $JUDGE_MODEL"
+    echo "  3. Use a smaller judge model by editing JUDGE_MODEL in the script"
+    echo "     (Current judge model may be too large for available memory)"
+    echo ""
+    exit 1
+fi
+JUDGE_CHECK_RESPONSE=$(json_get "$JUDGE_CHECK" '.response')
+if [[ -z "$JUDGE_CHECK_RESPONSE" ]]; then
+    echo " ${RED}FAILED${NC}"
+    echo ""
+    echo "${RED}ERROR: Judge model '$JUDGE_MODEL' returned empty response.${NC}"
+    echo "Try restarting Ollama: ollama serve"
+    echo ""
+    exit 1
+fi
+echo " ${GREEN}OK${NC}"
+echo ""
+
 TOTAL_TESTS=$((${#MODELS[@]} * 3))
 CURRENT_TEST=0
 
@@ -264,23 +399,23 @@ for MODEL in "${MODELS[@]}"; do
     echo "${YELLOW}═══════════════════════════════════════════════════════════════${NC}"
     echo "${YELLOW} MODEL: $MODEL${NC}"
     echo "${YELLOW}═══════════════════════════════════════════════════════════════${NC}"
-    
+
     SAFE_MODEL_NAME=$(echo "$MODEL" | tr ':/' '__')
     MODEL_SPEEDS=()
-    
+
     # Test 1: Reasoning
     ((CURRENT_TEST++))
     echo -n "  ${WHITE}[$CURRENT_TEST/$TOTAL_TESTS] Reasoning${NC}"
     echo -n "${GRAY} - Generating...${NC}"
-    
+
     RESPONSE=$(ollama_generate "$MODEL" "$REASONING_PROMPT")
-    
+
     if [[ -n "$RESPONSE" ]]; then
         RESPONSE_TEXT=$(json_get "$RESPONSE" '.response')
         EVAL_COUNT=$(json_get "$RESPONSE" '.eval_count')
         EVAL_DURATION=$(json_get "$RESPONSE" '.eval_duration')
         TOTAL_DURATION=$(json_get "$RESPONSE" '.total_duration')
-        
+
         # Calculate metrics
         if [[ -n "$EVAL_DURATION" ]] && ((EVAL_DURATION > 0)); then
             TOKENS_PER_SEC=$(echo "scale=2; $EVAL_COUNT / ($EVAL_DURATION / 1000000000)" | bc -l)
@@ -288,29 +423,29 @@ for MODEL in "${MODELS[@]}"; do
             TOKENS_PER_SEC=0
         fi
         DURATION_SEC=$(echo "scale=2; $TOTAL_DURATION / 1000000000" | bc -l)
-        
+
         MODEL_SPEEDS+=("$TOKENS_PER_SEC")
-        
+
         # Save response
         echo "$RESPONSE_TEXT" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_response.txt"
-        
+
         # Score
         echo -n " Scoring..."
         SCORE_RESULT=$(get_auto_score "Reasoning" "$REASONING_PROMPT" "$REASONING_EXPECTED" "$REASONING_CRITERIA" "$RESPONSE_TEXT")
-        
+
         IFS='|' read -r CORRECTNESS EFFICIENCY OUTCOME REASONING JUDGE_RAW <<< "$SCORE_RESULT"
-        
+
         # Save judge output
         echo "Scores: Correctness=$CORRECTNESS, Efficiency=$EFFICIENCY, Outcome=$OUTCOME" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_judge.txt"
         echo "Reasoning: $REASONING" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_judge.txt"
         echo "" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_judge.txt"
         echo "Raw Judge Response:" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_judge.txt"
         echo "$JUDGE_RAW" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Reasoning_judge.txt"
-        
+
         if ((CORRECTNESS > 0)); then
             COMPOSITE=$(echo "scale=1; ($CORRECTNESS + $EFFICIENCY + $OUTCOME) / 3" | bc -l)
             REASONING_SCORES[$MODEL]=$COMPOSITE
-            
+
             if (( $(echo "$COMPOSITE >= 8" | bc -l) )); then
                 echo " ${GREEN}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             elif (( $(echo "$COMPOSITE >= 5" | bc -l) )); then
@@ -318,7 +453,7 @@ for MODEL in "${MODELS[@]}"; do
             else
                 echo " ${RED}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             fi
-            
+
             echo "\"$MODEL\",\"Reasoning\",$CORRECTNESS,$EFFICIENCY,$OUTCOME,$COMPOSITE,$TOKENS_PER_SEC,$EVAL_COUNT,$DURATION_SEC,\"OK\",\"$REASONING\"" >> "$RESULTS_FILE"
         else
             echo " ${RED}SCORING FAILED${NC}"
@@ -330,48 +465,48 @@ for MODEL in "${MODELS[@]}"; do
         REASONING_SCORES[$MODEL]=0
         echo "\"$MODEL\",\"Reasoning\",0,0,0,0,0,0,0,\"ERROR\",\"No response from model\"" >> "$RESULTS_FILE"
     fi
-    
+
     sleep 2
-    
+
     # Test 2: Coding
     ((CURRENT_TEST++))
     echo -n "  ${WHITE}[$CURRENT_TEST/$TOTAL_TESTS] Coding${NC}"
     echo -n "${GRAY} - Generating...${NC}"
-    
+
     RESPONSE=$(ollama_generate "$MODEL" "$CODING_PROMPT")
-    
+
     if [[ -n "$RESPONSE" ]]; then
         RESPONSE_TEXT=$(json_get "$RESPONSE" '.response')
         EVAL_COUNT=$(json_get "$RESPONSE" '.eval_count')
         EVAL_DURATION=$(json_get "$RESPONSE" '.eval_duration')
         TOTAL_DURATION=$(json_get "$RESPONSE" '.total_duration')
-        
+
         if [[ -n "$EVAL_DURATION" ]] && ((EVAL_DURATION > 0)); then
             TOKENS_PER_SEC=$(echo "scale=2; $EVAL_COUNT / ($EVAL_DURATION / 1000000000)" | bc -l)
         else
             TOKENS_PER_SEC=0
         fi
         DURATION_SEC=$(echo "scale=2; $TOTAL_DURATION / 1000000000" | bc -l)
-        
+
         MODEL_SPEEDS+=("$TOKENS_PER_SEC")
-        
+
         echo "$RESPONSE_TEXT" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_response.txt"
-        
+
         echo -n " Scoring..."
         SCORE_RESULT=$(get_auto_score "Coding" "$CODING_PROMPT" "$CODING_EXPECTED" "$CODING_CRITERIA" "$RESPONSE_TEXT")
-        
+
         IFS='|' read -r CORRECTNESS EFFICIENCY OUTCOME REASONING JUDGE_RAW <<< "$SCORE_RESULT"
-        
+
         echo "Scores: Correctness=$CORRECTNESS, Efficiency=$EFFICIENCY, Outcome=$OUTCOME" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_judge.txt"
         echo "Reasoning: $REASONING" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_judge.txt"
         echo "" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_judge.txt"
         echo "Raw Judge Response:" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_judge.txt"
         echo "$JUDGE_RAW" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Coding_judge.txt"
-        
+
         if ((CORRECTNESS > 0)); then
             COMPOSITE=$(echo "scale=1; ($CORRECTNESS + $EFFICIENCY + $OUTCOME) / 3" | bc -l)
             CODING_SCORES[$MODEL]=$COMPOSITE
-            
+
             if (( $(echo "$COMPOSITE >= 8" | bc -l) )); then
                 echo " ${GREEN}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             elif (( $(echo "$COMPOSITE >= 5" | bc -l) )); then
@@ -379,7 +514,7 @@ for MODEL in "${MODELS[@]}"; do
             else
                 echo " ${RED}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             fi
-            
+
             echo "\"$MODEL\",\"Coding\",$CORRECTNESS,$EFFICIENCY,$OUTCOME,$COMPOSITE,$TOKENS_PER_SEC,$EVAL_COUNT,$DURATION_SEC,\"OK\",\"$REASONING\"" >> "$RESULTS_FILE"
         else
             echo " ${RED}SCORING FAILED${NC}"
@@ -391,48 +526,48 @@ for MODEL in "${MODELS[@]}"; do
         CODING_SCORES[$MODEL]=0
         echo "\"$MODEL\",\"Coding\",0,0,0,0,0,0,0,\"ERROR\",\"No response from model\"" >> "$RESULTS_FILE"
     fi
-    
+
     sleep 2
-    
+
     # Test 3: Logic
     ((CURRENT_TEST++))
     echo -n "  ${WHITE}[$CURRENT_TEST/$TOTAL_TESTS] Logic${NC}"
     echo -n "${GRAY} - Generating...${NC}"
-    
+
     RESPONSE=$(ollama_generate "$MODEL" "$LOGIC_PROMPT")
-    
+
     if [[ -n "$RESPONSE" ]]; then
         RESPONSE_TEXT=$(json_get "$RESPONSE" '.response')
         EVAL_COUNT=$(json_get "$RESPONSE" '.eval_count')
         EVAL_DURATION=$(json_get "$RESPONSE" '.eval_duration')
         TOTAL_DURATION=$(json_get "$RESPONSE" '.total_duration')
-        
+
         if [[ -n "$EVAL_DURATION" ]] && ((EVAL_DURATION > 0)); then
             TOKENS_PER_SEC=$(echo "scale=2; $EVAL_COUNT / ($EVAL_DURATION / 1000000000)" | bc -l)
         else
             TOKENS_PER_SEC=0
         fi
         DURATION_SEC=$(echo "scale=2; $TOTAL_DURATION / 1000000000" | bc -l)
-        
+
         MODEL_SPEEDS+=("$TOKENS_PER_SEC")
-        
+
         echo "$RESPONSE_TEXT" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_response.txt"
-        
+
         echo -n " Scoring..."
         SCORE_RESULT=$(get_auto_score "Logic" "$LOGIC_PROMPT" "$LOGIC_EXPECTED" "$LOGIC_CRITERIA" "$RESPONSE_TEXT")
-        
+
         IFS='|' read -r CORRECTNESS EFFICIENCY OUTCOME REASONING JUDGE_RAW <<< "$SCORE_RESULT"
-        
+
         echo "Scores: Correctness=$CORRECTNESS, Efficiency=$EFFICIENCY, Outcome=$OUTCOME" > "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_judge.txt"
         echo "Reasoning: $REASONING" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_judge.txt"
         echo "" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_judge.txt"
         echo "Raw Judge Response:" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_judge.txt"
         echo "$JUDGE_RAW" >> "$OUTPUT_DIR/${SAFE_MODEL_NAME}_Logic_judge.txt"
-        
+
         if ((CORRECTNESS > 0)); then
             COMPOSITE=$(echo "scale=1; ($CORRECTNESS + $EFFICIENCY + $OUTCOME) / 3" | bc -l)
             LOGIC_SCORES[$MODEL]=$COMPOSITE
-            
+
             if (( $(echo "$COMPOSITE >= 8" | bc -l) )); then
                 echo " ${GREEN}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             elif (( $(echo "$COMPOSITE >= 5" | bc -l) )); then
@@ -440,7 +575,7 @@ for MODEL in "${MODELS[@]}"; do
             else
                 echo " ${RED}Score: $COMPOSITE/10 (C:$CORRECTNESS E:$EFFICIENCY O:$OUTCOME) | $TOKENS_PER_SEC tok/s${NC}"
             fi
-            
+
             echo "\"$MODEL\",\"Logic\",$CORRECTNESS,$EFFICIENCY,$OUTCOME,$COMPOSITE,$TOKENS_PER_SEC,$EVAL_COUNT,$DURATION_SEC,\"OK\",\"$REASONING\"" >> "$RESULTS_FILE"
         else
             echo " ${RED}SCORING FAILED${NC}"
@@ -452,10 +587,10 @@ for MODEL in "${MODELS[@]}"; do
         LOGIC_SCORES[$MODEL]=0
         echo "\"$MODEL\",\"Logic\",0,0,0,0,0,0,0,\"ERROR\",\"No response from model\"" >> "$RESULTS_FILE"
     fi
-    
+
     # Calculate average speed for this model
     AVG_SPEEDS[$MODEL]=$(calc_average "${MODEL_SPEEDS[@]}")
-    
+
     echo ""
     sleep 5
 done
@@ -492,18 +627,18 @@ for MODEL in "${MODELS[@]}"; do
     C_SCORE=${CODING_SCORES[$MODEL]:-0}
     L_SCORE=${LOGIC_SCORES[$MODEL]:-0}
     SPEED=${AVG_SPEEDS[$MODEL]:-0}
-    
+
     # Calculate average
     AVG=$(calc_average "$R_SCORE" "$C_SCORE" "$L_SCORE")
-    
+
     # Format scores for display
     R_DISP=$([ "$R_SCORE" = "0" ] && echo "-" || echo "$R_SCORE")
     C_DISP=$([ "$C_SCORE" = "0" ] && echo "-" || echo "$C_SCORE")
     L_DISP=$([ "$L_SCORE" = "0" ] && echo "-" || echo "$L_SCORE")
-    
+
     # Store for sorting (prepend average for sort, will strip later)
     SUMMARY_LINES+=("$AVG|$MODEL|$R_DISP|$C_DISP|$L_DISP|$AVG|$SPEED")
-    
+
     # Write to CSV
     echo "\"$MODEL\",$R_SCORE,$C_SCORE,$L_SCORE,$AVG,$SPEED" >> "$SUMMARY_FILE"
 done
@@ -580,7 +715,7 @@ for MODEL in "${MODELS[@]}"; do
     L=${LOGIC_SCORES[$MODEL]:-0}
     AVG=$(calc_average "$R" "$C" "$L")
     SPEED=${AVG_SPEEDS[$MODEL]:-0}
-    
+
     if (( $(echo "$AVG > $BEST_AVG" | bc -l) )); then
         BEST_AVG=$AVG
         BEST_OVERALL=$MODEL
