@@ -1,6 +1,10 @@
 Scores: Correctness=10, Efficiency=10, Outcome=10
 Reasoning: The response accurately identifies the correct box to pick from, provides a complete and logical deduction chain, and states the minimum information needed without unnecessary exploration.
 
+⚠️ DATA INTEGRITY WARNING: The corresponding response file (deepseek-r1_8b_Logic_response.txt) is empty.
+The model generated 40,960 tokens over 409.95 seconds, but the response was not saved correctly.
+These scores may not be reliable without the original response to verify.
+
 Raw Judge Response:
 ```json
 {
