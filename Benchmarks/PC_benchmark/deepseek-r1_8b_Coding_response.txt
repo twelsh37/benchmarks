@@ -1,0 +1,57 @@
+To solve this problem, we need to write a Python function that takes a list and returns a new list containing only the elements that appear more than once. The solution should include type hints and a docstring, and provide an example of calling the function.
+
+### Approach
+1. **Count Frequencies**: We first count the frequency of each element in the list using a dictionary. This helps us identify which elements appear more than once.
+2. **Identify Duplicates**: Using the frequency counts, we create a set of elements that appear more than once.
+3. **Collect Results**: We then traverse the list again, collecting each element that is in the duplicates set. Each such element is added to the result list only once, ensuring the order of first occurrence is maintained.
+
+### Solution Code
+```python
+def find_duplicates(lst: list) -> list:
+    """
+    Given a list, returns a new list containing only the elements that appear more than once.
+    Each duplicate element is included only once in the result, and the order is the order of first occurrence.
+
+    Args:
+        lst: A list of elements (can be any hashable type).
+
+    Returns:
+        A list of elements that appear more than once, in the order of their first occurrence.
+
+    Examples:
+        >>> find_duplicates([1, 2, 3, 2, 4, 2])
+        [2]
+        >>> find_duplicates([1, 2, 2, 3, 3, 4, 4, 4])
+        [2, 3, 4]
+    """
+    if not lst:
+        return []
+    
+    # Count the frequency of each element
+    counts = {}
+    for element in lst:
+        counts[element] = counts.get(element, 0) + 1
+        
+    # Build a set of elements that appear more than once
+    duplicates_set = {k for k, v in counts.items() if v > 1}
+    
+    # Traverse the list and collect elements that are duplicates
+    result = []
+    for element in lst:
+        if element in duplicates_set:
+            result.append(element)
+            duplicates_set.remove(element)
+            
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    print(find_duplicates([1, 2, 3, 2, 4, 2]))  # Output: [2]
+```
+
+### Explanation
+1. **Counting Frequencies**: The first loop iterates through the list and uses a dictionary to keep track of how many times each element appears. This ensures we know which elements are duplicates.
+2. **Identifying Duplicates**: After counting, we create a set containing all elements that appear more than once. This set helps us efficiently check for duplicates during the next step.
+3. **Collecting Results**: The second loop traverses the list again. For each element, if it is in the duplicates set, it is added to the result list, and then removed from the set to ensure it is only included once. This maintains the order of the first occurrence of each duplicate element.
+
+This approach efficiently identifies and collects duplicate elements while maintaining the order of their first occurrence, providing a clear and concise solution to the problem.

@@ -1,0 +1,10 @@
+The farmer has 17 sheep. The phrase "all but 9 run away" means that all except 9 of the sheep ran away. Therefore, 9 sheep did not run away and are still with the farmer.
+
+**Step-by-step reasoning:**
+1. Start with the total number of sheep: 17.
+2. "All but 9" is an idiom meaning "all except 9."
+3. So, 17 - 9 = 14 sheep ran away.
+4. Therefore, the number of sheep left is 9.
+
+**Explanation of why this problem tricks most people:**
+This problem tricks people because of the common misinterpretation of the phrase "all but." Many people read "all but 9" as meaning "9 ran away" or that 9 were lost, leading them to subtract 9 from 17 (resulting in 8 sheep left). However, the correct interpretation is that "all but 9" means "all except 9," so 9 sheep are not included in the group that ran away. The confusion arises from not fully understanding the idiom "all but," which means "all except" in this context. This misreading causes people to arrive at the wrong answer of 8 instead of 9.

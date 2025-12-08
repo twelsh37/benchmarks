@@ -1,0 +1,41 @@
+Here's a Python function called `find_duplicates` that takes a list and returns a new list containing only the elements that appear more than once. The function includes type hints and a docstring, followed by an example of how to call it:
+
+```python
+from typing import List, TypeVar
+
+T = TypeVar('T')
+
+def find_duplicates(input_list: List[T]) -> List[T]:
+    """
+    Returns a list of elements that appear more than once in the input list.
+
+    Args:
+        input_list: The list to search for duplicates.
+
+    Returns:
+        A list containing elements that appear more than once in the input list.
+        The order of elements in the returned list is not guaranteed to match
+        the order in the input list.
+    """
+    seen = set()
+    duplicates = set()
+
+    for item in input_list:
+        if item in seen:
+            duplicates.add(item)
+        else:
+            seen.add(item)
+
+    return list(duplicates)
+
+# Example of calling the function
+example_list = [1, 2, 3, 2, 4, 5, 3, 6, 7, 7]
+result = find_duplicates(example_list)
+print(result)  # Output: [2, 3, 7]
+```
+
+### Explanation:
+1. **Type Hints**: The function uses `TypeVar` to make it generic, meaning it can work with lists of any type (e.g., integers, strings, etc.).
+2. **Docstring**: The docstring explains the purpose of the function, its arguments, and what it returns.
+3. **Logic**: The function uses two sets, `seen` and `duplicates`, to track items that have been encountered and items that are duplicates, respectively.
+4. **Example**: The example list `[1, 2, 3, 2, 4, 5, 3, 6, 7, 7]` contains duplicates `2`, `3`, and `7`, so the function returns `[2, 3, 7]`. The order of the returned list may vary since sets are unordered.

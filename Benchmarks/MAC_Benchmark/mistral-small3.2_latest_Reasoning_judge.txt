@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The response accurately states the correct answer and provides a clear explanation of why 'all but 9' means that 9 sheep remain. The only minor deduction in efficiency is due to slightly more detailed steps than necessary, but it remains concise overall.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The response accurately states the correct answer and provides a clear explanation of why 'all but 9' means that 9 sheep remain. The only minor deduction in efficiency is due to slightly more detailed steps than necessary, but it remains concise overall."
+}
+```

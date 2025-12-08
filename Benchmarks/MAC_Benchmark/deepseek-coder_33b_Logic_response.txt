@@ -1,0 +1,17 @@
+You could solve this problem using Bayesian inference, but there's also an intuitive way we can think about it. 
+
+Without looking into the boxes (let's call them A, O, M for 'Apples', 'Oranges', and 'Mixed'), you have no information to differentiate between fruits or boxes that are mixed. This means each box could contain any kind of fruit or a mix of two kinds of fruit:
+
+1) Box "A" might be full of apples only (AAA).
+2) Box "O" might be full of oranges only (OOO).
+3) Both boxes "A" and "O" might be full of mixed fruits (AOA, OAO, AOO, OOA etc.). 
+4) And lastly, box "M" might contain any kind of fruit (AAO, OOA, AOA, OOA etc.).
+
+So the minimum information needed to correctly label all boxes is one example of each kind of combination. This is because by seeing one example of each, you can determine that: 
+- Box "A" contains apples only.
+- Box "O" contains oranges only.
+- And box "M" contains a mix of both fruits.
+
+This reasoning applies for boxes with any number of different types of fruit and combinations thereof - one example per type is enough to correctly label the boxes. 
+
+For three types (Apples, Oranges, Mixed), you need three examples: AAA, OOO, and AMM or AOMAOM etc., which represent a scenario where each box contains exactly one type of fruit.

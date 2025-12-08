@@ -1,0 +1,12 @@
+Scores: Correctness=9, Efficiency=8, Outcome=9
+Reasoning: The response correctly identifies the answer as 9 and adequately explains why 'all but 9' means 9 remain. The explanation is clear, though it includes an unnecessary calculation step. Both parts of the question are addressed effectively.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 9,
+  "efficiency": 8,
+  "outcome": 9,
+  "reasoning": "The response correctly identifies the answer as 9 and adequately explains why 'all but 9' means 9 remain. The explanation is clear, though it includes an unnecessary calculation step. Both parts of the question are addressed effectively."
+}
+```

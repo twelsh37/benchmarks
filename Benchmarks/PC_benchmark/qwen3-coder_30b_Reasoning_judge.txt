@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The response correctly identifies the answer as 9 sheep and accurately explains why 'all but 9' means 9 remain. The explanation of the trick is clear, though slightly verbose.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The response correctly identifies the answer as 9 sheep and accurately explains why 'all but 9' means 9 remain. The explanation of the trick is clear, though slightly verbose."
+}
+```

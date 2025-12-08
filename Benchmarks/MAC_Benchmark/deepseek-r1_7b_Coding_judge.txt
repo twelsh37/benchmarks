@@ -1,0 +1,22 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The response correctly implements the function 'find_duplicates' with accurate logic, efficient use of a dictionary for counting, and includes type hints, docstring, and a working example.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The response correctly implements the function 'find_duplicates' with accurate logic, efficient use of a dictionary for counting, and includes type hints, docstring, and a working example."
+}
+```
+
+### Explanation:
+
+- **Correctness (10/10):** The function `find_duplicates` is implemented correctly. It accurately identifies elements that appear more than once in the list by using a dictionary to count occurrences. The logic for identifying duplicates is sound.
+
+- **Efficiency (10/10):** The solution uses a dictionary, achieving an O(n) time complexity for counting element occurrences and another pass over the dictionary items to collect duplicates, maintaining overall efficiency.
+
+- **Outcome (10/10):** All five requirements are met: the function has the correct name, includes type hints (`List[Any]`), contains a clear docstring explaining its purpose, provides a working example call, and returns correctly functioning code. 
+
+The response is comprehensive, adhering to best practices in Python programming with clean and efficient code structure.

@@ -1,0 +1,31 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The code correctly identifies elements that appear more than once, using an efficient O(n) approach with sets. It includes type hints, a detailed docstring, and example calls, meeting all requirements.
+
+Raw Judge Response:
+```json
+{
+    "correctness": 10,
+    "efficiency": 10,
+    "outcome": 10,
+    "reasoning": "The code correctly identifies elements that appear more than once, using an efficient O(n) approach with sets. It includes type hints, a detailed docstring, and example calls, meeting all requirements."
+}
+``` 
+
+### Breakdown of Evaluation:
+
+**Correctness:**
+- The function `find_duplicates` successfully returns elements appearing more than once in the list, preserving their original order of first occurrence.
+- Logic is sound; it correctly identifies duplicates using sets to track seen items and detected duplicates.
+- Example calls demonstrate functionality with different data types and scenarios.
+
+**Efficiency:**
+- Utilizes an O(n) solution by employing set operations for tracking occurrences. This approach efficiently processes each list item once, making it optimal in terms of time complexity.
+- Clean and Pythonic implementation using sets to manage seen items and duplicates, avoiding unnecessary computations or nested loops.
+
+**Outcome (Completeness):**
+- The function is named `find_duplicates` as required.
+- Type hints are included: `def find_duplicates(lst: List[T]) -> List[T]:`.
+- A comprehensive docstring explains the function's purpose, parameters, return value, and provides examples.
+- Example usage demonstrates the function with different test cases, including numbers, strings, and a list without duplicates.
+
+Overall, the response is exemplary, meeting all criteria for correctness, efficiency, and completeness.

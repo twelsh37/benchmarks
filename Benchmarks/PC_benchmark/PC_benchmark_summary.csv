@@ -1,0 +1,11 @@
+Model,Reasoning,Coding,Logic,Average,Tok/s
+"deepseek-r1:7b",9.7,10.0,10.0,9.9,148.53
+"qwen3-coder:30b",9.7,10.0,10.0,9.9,171.96
+"phi4:14b",9.7,10.0,10.0,9.9,85.5
+"deepseek-r1:8b",9.7,9.7,10.0,9.8,120.48
+"deepseek-r1:32b",9.7,9.0,10.0,9.6,38.48
+"mistral-small3.2:latest",8.7,10.0,10.0,9.6,17.59
+"llama3.3:latest",9.7,10.0,8.7,9.5,2.03
+"mistral:latest",8.7,7.7,9.7,8.7,150.52
+"deepseek-coder:33b",3.3,10.0,2.0,5.1,41.27
+"codellama:34b",1.7,9.7,1.0,4.1,41.58

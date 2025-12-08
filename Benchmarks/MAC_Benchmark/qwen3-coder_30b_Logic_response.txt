@@ -1,0 +1,38 @@
+To solve this problem, I need to determine the minimum information needed to correctly label all three boxes.
+
+Let me think through this step by step.
+
+**Initial Setup:**
+- Three boxes labeled: 'Apples', 'Oranges', and 'Mixed'
+- All labels are wrong (each box is mislabeled)
+- I can pick one fruit from one box
+
+**Key Insight:**
+Since all labels are wrong, I know:
+- The 'Apples' box doesn't contain only apples
+- The 'Oranges' box doesn't contain only oranges  
+- The 'Mixed' box doesn't contain mixed fruits
+
+**Strategy:**
+I should pick from the 'Mixed' box because it's the most informative choice.
+
+**Why the 'Mixed' box?**
+- Since the label is wrong, it must contain either only apples OR only oranges
+- If I pick an apple from the 'Mixed' box, then:
+  - This box actually contains only apples
+  - The 'Apples' box must contain mixed fruits (since it can't contain only apples)
+  - The 'Oranges' box must contain only oranges
+- If I pick an orange from the 'Mixed' box, then:
+  - This box actually contains only oranges
+  - The 'Oranges' box must contain mixed fruits (since it can't contain only oranges)
+  - The 'Apples' box must contain only apples
+
+**Minimum Information Needed:**
+**Just one fruit pick from the 'Mixed' box.**
+
+This single piece of information is sufficient because:
+1. It tells me what type of fruit is actually in the 'Mixed' box
+2. Since all labels are wrong, I can deduce the contents of the other two boxes
+3. The logic is deterministic - there's only one correct arrangement
+
+**Answer:** The minimum information needed is **one fruit picked from the 'Mixed' box**. This single observation, combined with the constraint that all labels are wrong, completely determines the correct labeling of all three boxes.

@@ -1,0 +1,12 @@
+Scores: Correctness=3, Efficiency=4, Outcome=2
+Reasoning: The response incorrectly concludes that no sheep remain, misunderstanding 'all but 9' to mean none are left. It also fails to correctly explain why the problem is tricky.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 3,
+  "efficiency": 4,
+  "outcome": 2,
+  "reasoning": "The response incorrectly concludes that no sheep remain, misunderstanding 'all but 9' to mean none are left. It also fails to correctly explain why the problem is tricky."
+}
+```

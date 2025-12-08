@@ -1,0 +1,20 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The solution correctly identifies elements appearing more than once, uses a dictionary for O(n) complexity, and meets all requirements with type hints, docstring, and example.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The solution correctly identifies elements appearing more than once, uses a dictionary for O(n) complexity, and meets all requirements with type hints, docstring, and example."
+}
+```
+
+**Reasoning:**
+
+- **Correctness (10/10):** The code accurately implements the logic to find elements that appear more than once. It correctly initializes and updates the frequency dictionary and returns a list of duplicates.
+
+- **Efficiency (10/10):** The solution uses a dictionary to count occurrences in one pass, achieving O(n) time complexity. This is efficient and leverages Python's built-in data structures effectively.
+
+- **Outcome (10/10):** All five requirements are met: the function name 'find_duplicates', type hints, a comprehensive docstring, an example call, and functioning code. The solution is complete and well-documented.

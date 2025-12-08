@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The response correctly identifies the number of sheep remaining and explains why the phrasing is tricky. It's mostly concise but includes a minor unnecessary step in breaking down the calculation.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The response correctly identifies the number of sheep remaining and explains why the phrasing is tricky. It's mostly concise but includes a minor unnecessary step in breaking down the calculation."
+}
+```

@@ -1,0 +1,9 @@
+ Let's break it down:
+
+1. The farmer initially has 17 sheep.
+2. "All but 9" means that all of the sheep except for 9 ran away. So, to find out how many sheep are left, we subtract the number that ran away from the total:
+   Remaining sheep = Initial total - Sheep that ran away
+   Remaining sheep = 17 - 8 (since there were initially 17 and 9 didn't run away)
+   Remaining sheep = 9
+
+The trick in this problem comes from our natural tendency to think about "all" as meaning "every single one". However, "all but 9" specifically means that all the sheep except for 9 ran away. This can take a moment to understand if we're not careful with the words being used.

@@ -1,0 +1,16 @@
+```
+def find_duplicates(my_list: list) -> list:
+    """
+    Returns a new list containing only the elements that appear more than once in the original list.
+
+    :param my_list: The list to search for duplicates
+    :return: A new list containing the duplicates
+    """
+    return [x for x in my_list if my_list.count(x) > 1]
+```
+Example:
+```
+my_list = ['apple', 'banana', 'orange', 'banana', 'orange']
+duplicates = find_duplicates(my_list)
+print(duplicates)  # Output: ['banana', 'orange']
+```

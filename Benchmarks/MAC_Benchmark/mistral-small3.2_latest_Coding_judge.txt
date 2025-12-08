@@ -1,0 +1,17 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The solution correctly identifies elements appearing more than once using sets, ensuring O(n) time complexity. It includes type hints, a comprehensive docstring, and an example call with the expected output.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The solution correctly identifies elements appearing more than once using sets, ensuring O(n) time complexity. It includes type hints, a comprehensive docstring, and an example call with the expected output."
+}
+``` 
+
+Explanation:
+- **Correctness (10/10):** The code correctly implements logic to find elements that appear more than once in the input list. It uses two sets to efficiently track seen items and duplicates.
+- **Efficiency (10/10):** The function operates in O(n) time complexity by using set operations, which are efficient for membership tests and insertions.
+- **Outcome (10/10):** All required elements are present: the correct function name (`find_duplicates`), type hints using `TypeVar`, a well-explained docstring, an example of calling the function, and fully working code.

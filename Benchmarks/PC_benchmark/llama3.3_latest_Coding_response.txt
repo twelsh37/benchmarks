@@ -1,0 +1,41 @@
+### Find Duplicates Function
+```python
+from typing import List, Any
+
+def find_duplicates(input_list: List[Any]) -> List[Any]:
+    """
+    This function takes a list as input and returns a new list containing only the elements that appear more than once.
+
+    Args:
+        input_list (List[Any]): The input list to check for duplicates.
+
+    Returns:
+        List[Any]: A list of duplicate elements.
+    """
+    seen = set()
+    duplicates = set()
+
+    # Iterate over the input list
+    for item in input_list:
+        if item in seen:
+            duplicates.add(item)
+        else:
+            seen.add(item)
+
+    return list(duplicates)
+
+
+# Example usage:
+if __name__ == "__main__":
+    my_list = [1, 2, 3, 4, 2, 5, 6, 7, 8, 9, 5]
+    print(find_duplicates(my_list))  # Output: [2, 5]
+```
+
+In this code:
+
+- We define a function `find_duplicates` that takes a list of any type as input and returns a list of the same type.
+- Inside the function, we use two sets (`seen` and `duplicates`) to keep track of elements we've seen so far and the duplicates, respectively.
+- We iterate over each item in the input list. If an item is already in the `seen` set, it's a duplicate, so we add it to the `duplicates` set.
+- Finally, we convert the `duplicates` set back into a list and return it.
+
+This approach has a time complexity of O(n), where n is the number of elements in the input list, because looking up an item in a set takes constant time on average.

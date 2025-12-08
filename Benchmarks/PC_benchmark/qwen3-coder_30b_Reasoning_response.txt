@@ -1,0 +1,25 @@
+## Step-by-step solution:
+
+**Step 1:** Read the problem carefully
+- A farmer has 17 sheep
+- "All but 9 run away"
+
+**Step 2:** Interpret "all but 9"
+- "All but 9" means "all except 9"
+- So 9 sheep did NOT run away
+- The remaining sheep (17 - 9) = 8 sheep did run away
+
+**Step 3:** Answer the question
+- The question asks "How many sheep does the farmer have left?"
+- Since 9 sheep did NOT run away, the farmer has 9 sheep left
+
+**Answer: 9 sheep**
+
+## Why this problem tricks most people:
+
+The problem tricks people because of the misleading phrasing "All but 9 run away." When people hear "all but 9," they often think:
+- "All of them except 9 ran away" 
+- This makes them focus on the number that ran away (8) rather than the number that stayed
+- The phrase "all but 9" is counterintuitive - it's easier to think "9 ran away" instead of "9 stayed"
+
+The key is understanding that "all but 9" means "everything except 9," so 9 sheep remain, not 8. This is a classic example of how word choice can create confusion even when the math is simple.

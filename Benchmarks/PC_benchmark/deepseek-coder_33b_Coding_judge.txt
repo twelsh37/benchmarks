@@ -1,0 +1,28 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The code correctly identifies elements appearing more than once, uses an O(n) approach with a dictionary for counting, and includes all required elements: function name, type hints, docstring, example, and working code.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The code correctly identifies elements appearing more than once, uses an O(n) approach with a dictionary for counting, and includes all required elements: function name, type hints, docstring, example, and working code."
+}
+```
+
+### Justification:
+
+1. **Correctness (10/10)**:
+   - The logic to find duplicates is correct. It counts occurrences of each element using a dictionary, then filters out those that appear more than once.
+   - The function correctly returns `[2, 4, 9]` for the given example input.
+
+2. **Efficiency (10/10)**:
+   - The solution uses a dictionary to count occurrences in O(n) time complexity.
+   - This is an efficient and Pythonic approach using built-in data structures.
+
+3. **Outcome (10/10)**:
+   - All requirements are met: the function has the correct name, type hints, a docstring, and a working example call.
+   - The code is clean, readable, and functional. 
+
+Overall, the response meets all criteria for correctness, efficiency, and completeness.

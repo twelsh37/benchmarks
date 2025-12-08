@@ -1,0 +1,11 @@
+ Here's how we can solve this:
+
+1. Let's say you pick a fruit from the box labeled 'Mixed'. Since that label is wrong, it must contain either only Apples or only Oranges. Suppose you picked an Apple from the 'Mixed' box.
+
+2. Now we know for sure that the box labeled 'Mixed' contains Apples, and the other two boxes (labeled 'Apples' and 'Oranges') can't have Apples because each label is wrong. So one of those remaining boxes must contain Apples, and the other must contain Oranges.
+
+3. Since you already know that the box labeled 'Mixed' contains Apples, you also know which box does not contain Apples (the one labeled 'Apples'), making it possible to correctly label that box as 'Oranges'.
+
+4. The last box is the one labeled 'Oranges', but since each label is wrong, it cannot contain Oranges. Therefore, it must contain Mixed fruits.
+
+So with just one pick of a fruit from the 'Mixed' box, you can correctly label all three boxes in minimum information needed.

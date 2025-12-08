@@ -1,0 +1,12 @@
+Scores: Correctness=1, Efficiency=3, Outcome=2
+Reasoning: The answer is incorrect, stating there are 8 sheep left instead of the correct 9. The reasoning does not correctly explain why 'all but 9' means 9 remain, only mentioning it as a brain teaser.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 1,
+  "efficiency": 3,
+  "outcome": 2,
+  "reasoning": "The answer is incorrect, stating there are 8 sheep left instead of the correct 9. The reasoning does not correctly explain why 'all but 9' means 9 remain, only mentioning it as a brain teaser."
+}
+```

@@ -1,0 +1,4 @@
+
+To correctly label all three boxes, we need to know which box contains Apples, which box contains Oranges, and which box contains Mixed. We can obtain this information by picking one fruit from each of the three boxes. Since we cannot look inside the boxes, we will need to rely on our senses to determine which fruit we picked from which box.
+
+For example, if we pick an apple from Box A, we know that Box A contains Apples and Box B contains Oranges. We also know that Box C contains Mixed since it is not either Apples or Oranges. Therefore, with one fruit from each box, we can correctly label all three boxes.

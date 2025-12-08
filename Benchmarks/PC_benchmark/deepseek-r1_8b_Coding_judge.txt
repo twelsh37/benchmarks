@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The code correctly identifies and returns duplicates, uses a dictionary to count frequencies (O(n)), and maintains order with an additional list traversal. It includes all necessary components: function name, type hints, docstring, example call, and working code.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The code correctly identifies and returns duplicates, uses a dictionary to count frequencies (O(n)), and maintains order with an additional list traversal. It includes all necessary components: function name, type hints, docstring, example call, and working code."
+}
+```

@@ -1,0 +1,27 @@
+This problem represents a variant of the Monty Hall problem, where you have to choose between three boxes instead of two, and you get to see what is behind only one of them. 
+
+Here is how you can solve it using Python code:
+```python
+import random
+
+# Create the boxes with fruits
+boxes = ['Apples', 'Oranges', 'Mixed']
+random.shuffle(boxes) # randomly shuffle the order of boxes
+
+# Assume we choose the first box
+choice = 0
+
+if boxes[choice] == "Apples": 
+    print("You chose the Apples box")
+elif boxes[choice] == "Oranges": 
+    print("You chose the Oranges box")
+else: # Mixed
+    print("You chose the Mixed box")
+```
+In this case, if you pick 'Apples', then that's all the information you need because there are no more apples left. The same applies for picking either 'Oranges' or 'Mixed'. 
+
+However, if you want to use a mathematical approach, we can calculate the minimum amount of information needed: 
+
+We have three labels (Apples, Oranges, Mixed), and each box contains two types of fruit. The labels represent one type of fruit, but they could also be the other type or even mixed. Therefore, without knowing anything about the contents of any boxes, there is no way to guarantee the correct label for all of them.
+
+Therefore, it requires at least 2 bits (a unit of information) of information to correctly identify a box. This is because you need to know whether an Apple or Orange is in the box. But since we have three boxes and two possible labels per box (Apple/Orange), then indeed 1 bit of information would be enough if there was no mixing of fruits, but due to the possibility of fruit being mixed, we need at least two bits - hence our answer is 2 bits of information.

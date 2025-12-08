@@ -1,0 +1,30 @@
+```
+def find_duplicates(my_list: List[object]) -> List[object]:
+    """
+    Return a list of all elements in my_list that appear more than once.
+
+    Args:
+        my_list: The input list to search for duplicates.
+
+    Returns:
+        A list containing only the elements that appear more than once in my_list.
+    """
+    unique_elements = set()
+    duplicate_elements = []
+    for element in my_list:
+        if element not in unique_elements:
+            unique_elements.add(element)
+        else:
+            duplicate_elements.append(element)
+    return duplicate_elements
+```
+Here is an example of calling the function:
+```
+my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+duplicates = find_duplicates(my_list)
+print(duplicates) # Output: []
+
+my_list = [1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9]
+duplicates = find_duplicates(my_list)
+print(duplicates) # Output: [2, 3]
+```

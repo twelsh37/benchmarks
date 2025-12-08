@@ -1,0 +1,14 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The function correctly identifies elements appearing more than once using a dictionary for counting, achieving O(n) efficiency. It includes type hints, a docstring with an example, and a working code snippet.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The function correctly identifies elements appearing more than once using a dictionary for counting, achieving O(n) efficiency. It includes type hints, a docstring with an example, and a working code snippet."
+}
+``` 
+
+The model's response meets all the criteria for correctness, efficiency, and completeness. The logic is sound and efficient, utilizing a dictionary to count occurrences in linear time. Type hints are included, and the function is well-documented with a clear example call, fully satisfying the task requirements.

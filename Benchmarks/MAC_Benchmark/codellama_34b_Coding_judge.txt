@@ -1,0 +1,12 @@
+Scores: Correctness=6, Efficiency=4, Outcome=9
+Reasoning: The function has logic errors because it returns duplicate entries like ['banana', 'orange'] multiple times. The approach is not efficient as it uses list.count() in a loop, making the solution O(n^2). However, it meets most of the requirements including type hints and docstring.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 6,
+  "efficiency": 4,
+  "outcome": 9,
+  "reasoning": "The function has logic errors because it returns duplicate entries like ['banana', 'orange'] multiple times. The approach is not efficient as it uses list.count() in a loop, making the solution O(n^2). However, it meets most of the requirements including type hints and docstring."
+}
+```

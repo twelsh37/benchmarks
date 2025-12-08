@@ -1,0 +1,49 @@
+Below is a Python function `find_duplicates` which takes a list as input and returns a new list containing elements that appear more than once. I've included type hints and a detailed docstring to explain the function's behavior.
+
+```python
+from typing import List, TypeVar
+
+T = TypeVar('T')
+
+def find_duplicates(input_list: List[T]) -> List[T]:
+    """
+    Identifies duplicate elements in a list and returns them as a new list.
+    
+    This function scans through the input list and collects all elements 
+    that appear more than once. The result is returned as a new list without
+    duplicates, i.e., each element appears only once in the output.
+
+    Args:
+        input_list (List[T]): A list of elements which may include duplicates.
+
+    Returns:
+        List[T]: A list containing only the duplicate elements from the input list.
+                 Each duplicate will appear only once in this result list.
+
+    Example:
+        >>> find_duplicates([1, 2, 3, 4, 5, 2, 6, 7, 8, 9, 3])
+        [2, 3]
+        
+        >>> find_duplicates(['apple', 'banana', 'apple', 'pear', 'banana'])
+        ['apple', 'banana']
+    """
+    
+    # Dictionary to keep track of element counts
+    count_dict = {}
+    for item in input_list:
+        if item in count_dict:
+            count_dict[item] += 1
+        else:
+            count_dict[item] = 1
+    
+    # List comprehension to collect items with a count greater than 1
+    duplicates = [item for item, count in count_dict.items() if count > 1]
+    
+    return duplicates
+
+# Example of calling the function
+example_list = [1, 2, 3, 4, 5, 2, 6, 7, 8, 9, 3]
+print(find_duplicates(example_list))
+```
+
+This code defines a function `find_duplicates` that uses a dictionary to count occurrences of each element in the list. It then creates a list of elements that appear more than once and returns this list. The example call demonstrates how the function works with an integer list.

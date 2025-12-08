@@ -1,0 +1,19 @@
+To correctly label all boxes with minimal information:
+
+1. **Pick a fruit from the box labeled 'Mixed' (Box C).**
+2. - If you draw an apple:
+    - Label Box C as 'Apples'.
+    - Box B (labeled 'Oranges') must be 'Mixed'.
+    - Therefore, Box A (labeled 'Apples') becomes 'Oranges'.
+3. - If you draw an orange:
+    - Label Box C as 'Oranges'.
+    - Box A (labeled 'Apples') must be 'Mixed'.
+    - Thus, Box B (labeled 'Oranges') becomes 'Apples'.
+
+By choosing one fruit from the box labeled 'Mixed', you can deduce all correct labels efficiently.
+
+**Answer:**
+
+Pick one fruit from the box labeled "Mixed." If it's an apple, label that box "Apples," then label the box originally marked "Oranges" as "Mixed" and the remaining box as "Oranges." If it's an orange, label that box "Oranges," mark the box labeled "Apples" as "Mixed," and the last box as "Apples."
+
+$\boxed{\text{Pick one fruit from the 'Mixed' box to determine all labels}}$

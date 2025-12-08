@@ -1,0 +1,20 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The code correctly implements the logic to find duplicates using an O(n) approach with sets, includes type hints and a comprehensive docstring, and provides multiple working example calls demonstrating its functionality.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The code correctly implements the logic to find duplicates using an O(n) approach with sets, includes type hints and a comprehensive docstring, and provides multiple working example calls demonstrating its functionality."
+}
+``` 
+
+**Explanation:**
+
+- **Correctness (10/10):** The function `find_duplicates` accurately identifies elements appearing more than once in the list. It uses sets to track seen items and duplicates efficiently, returning them in order of their first occurrence.
+
+- **Efficiency (10/10):** The solution utilizes a two-pass O(n) approach with sets for optimal performance. This is efficient as it avoids nested loops and leverages set operations to maintain an overall linear time complexity.
+
+- **Outcome (10/10):** The response fulfills all the requirements: defining `find_duplicates` with type hints, including a detailed docstring, demonstrating usage through example calls, and producing working code that meets the specified criteria.

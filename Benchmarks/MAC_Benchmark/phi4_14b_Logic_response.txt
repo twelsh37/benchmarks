@@ -1,0 +1,25 @@
+To solve this problem, we need to determine how to correctly relabel the boxes by drawing only one fruit from a single box. Here’s a step-by-step explanation:
+
+1. **Understand the Problem**: Each of the three boxes is labeled incorrectly:
+   - One is labeled 'Apples' but does not contain only apples.
+   - One is labeled 'Oranges' but does not contain only oranges.
+   - One is labeled 'Mixed' but does not actually have a mix of both fruits (it contains either all apples or all oranges).
+
+2. **Choose the Box Labeled 'Mixed'**: Since each label is wrong, the box labeled 'Mixed' cannot contain a mix of both apples and oranges. Therefore, it must contain only one type of fruit: either just apples or just oranges.
+
+3. **Draw One Fruit from the 'Mixed' Labeled Box**:
+   - Suppose you draw an apple from this box. This means that the box actually contains only apples.
+   - Conversely, if you drew an orange, then the box contains only oranges.
+
+4. **Relabel the Boxes Based on Your Draw**:
+   - If you drew an apple from the 'Mixed' labeled box, label it as 'Apples'.
+   - Now consider the remaining two boxes: one is labeled 'Apples' and the other 'Oranges'. Since we know these labels are incorrect:
+     - The box labeled 'Apples' cannot contain only apples (since you already identified that), so it must be the 'Mixed' box containing both oranges and apples.
+     - Consequently, the box labeled 'Oranges' must actually contain only oranges.
+
+   - If you drew an orange from the 'Mixed' labeled box, label it as 'Oranges'.
+   - Now consider the remaining two boxes:
+     - The box labeled 'Oranges' cannot contain only oranges (since you already identified that), so it must be the 'Mixed' box containing both apples and oranges.
+     - Consequently, the box labeled 'Apples' must actually contain only apples.
+
+5. **Conclusion**: By drawing one fruit from the box labeled 'Mixed', you can determine its actual contents and use logical deduction to correctly label all three boxes. This is the minimum information needed to solve the problem.

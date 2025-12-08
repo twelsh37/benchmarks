@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The response meets all criteria with correct logic, O(n) efficiency using sets, and includes a function name, type hints, docstring, example call, and working code.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The response meets all criteria with correct logic, O(n) efficiency using sets, and includes a function name, type hints, docstring, example call, and working code."
+}
+```

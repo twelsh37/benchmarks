@@ -1,0 +1,27 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The solution correctly identifies elements appearing more than once using a set to track seen elements, ensuring O(n) complexity. It includes all required components: function name, type hints, docstring, and example call.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The solution correctly identifies elements appearing more than once using a set to track seen elements, ensuring O(n) complexity. It includes all required components: function name, type hints, docstring, and example call."
+}
+``` 
+
+**Detailed Breakdown:**
+
+- **Correctness (10/10):**
+  - The logic is accurate for finding elements that appear more than once in the list.
+  - It correctly appends an element to `duplicate_elements` only after it has been seen at least twice.
+
+- **Efficiency (9/10):**
+  - The use of a set allows for O(1) average time complexity checks, and iterating over the list is O(n), resulting in overall O(n) efficiency.
+  - Slight deduction because `set.add()` and `list.append()` could be seen as minor overheads compared to using Python's `collections.Counter` which might offer cleaner code with similar efficiency.
+
+- **Outcome (10/10):**
+  - The function name, type hints, and docstring are correctly implemented.
+  - An example call is provided demonstrating the function's usage and expected output.
+  - All five requirements of the task are met.

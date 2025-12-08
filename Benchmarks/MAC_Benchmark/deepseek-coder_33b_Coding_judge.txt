@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The solution correctly implements the logic for finding elements that appear more than once using a dictionary to count occurrences, resulting in an O(n) time complexity. All key requirements including function name, type hints, docstring, and working example are met.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The solution correctly implements the logic for finding elements that appear more than once using a dictionary to count occurrences, resulting in an O(n) time complexity. All key requirements including function name, type hints, docstring, and working example are met."
+}
+```

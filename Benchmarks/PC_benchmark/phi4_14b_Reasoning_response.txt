@@ -1,0 +1,11 @@
+To solve this problem, let's break it down step by step:
+
+1. **Understand the Statement**: The phrase "All but 9 run away" means that all the sheep except for 9 ran away.
+
+2. **Determine Remaining Sheep**: If all but 9 sheep ran away, then 9 sheep did not run away and are still with the farmer.
+
+3. **Conclusion**: Therefore, the farmer has 9 sheep left.
+
+### Why This Problem Tricks People:
+
+The problem is designed to trick people by using language that can be misleading at first glance. The key phrase "All but 9" might make some readers incorrectly focus on how many ran away instead of realizing it simply means all except for 9 stayed. Many people automatically try to subtract or calculate how many are gone rather than focusing on the direct statement about those remaining. This kind of wording can lead to confusion and errors in interpretation.

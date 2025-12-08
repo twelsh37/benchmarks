@@ -1,0 +1,20 @@
+Scores: Correctness=9, Efficiency=4, Outcome=10
+Reasoning: The code correctly identifies elements that appear more than once, but the efficiency is compromised by using data.count() in a loop, leading to O(n^2) complexity. All required components are present.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 9,
+  "efficiency": 4,
+  "outcome": 10,
+  "reasoning": "The code correctly identifies elements that appear more than once, but the efficiency is compromised by using data.count() in a loop, leading to O(n^2) complexity. All required components are present."
+}
+``` 
+
+**Explanation:**
+
+- **Correctness (9/10):** The function `find_duplicates` accurately returns elements appearing more than once. However, it includes duplicates multiple times if they occur more than twice, slightly deviating from the expected behavior of returning each element only once.
+  
+- **Efficiency (4/6):** The use of `data.count()` within a loop results in an O(n^2) time complexity, which is inefficient for large lists. A more efficient approach using collections like Counter would achieve O(n).
+
+- **Outcome (10/10):** The response meets all five requirements: the function name is correct, type hints and a docstring are included, it returns elements appearing more than once, and there's an example call demonstrating its usage.

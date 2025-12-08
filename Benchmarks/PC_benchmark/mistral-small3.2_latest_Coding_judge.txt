@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The code correctly identifies elements that appear more than once using an efficient O(n) approach with sets. It meets all the requirements, including type hints, a comprehensive docstring, and a working example.
+
+Raw Judge Response:
+```json
+{
+    "correctness": 10,
+    "efficiency": 10,
+    "outcome": 10,
+    "reasoning": "The code correctly identifies elements that appear more than once using an efficient O(n) approach with sets. It meets all the requirements, including type hints, a comprehensive docstring, and a working example."
+}
+```

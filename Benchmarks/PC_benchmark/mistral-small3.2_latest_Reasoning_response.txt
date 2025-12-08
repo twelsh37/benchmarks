@@ -1,0 +1,16 @@
+Let's solve the problem step by step:
+
+**Problem Statement:**
+A farmer has 17 sheep. All but 9 run away. How many sheep does the farmer have left?
+
+**Solution:**
+1. The farmer initially has 17 sheep.
+2. The phrase "all but 9 run away" means that all of the sheep except for 9 run away.
+3. Therefore, the number of sheep that run away is 17 - 9 = 8 sheep.
+4. The number of sheep left with the farmer is the 9 that did not run away.
+
+**Answer:**
+The farmer has 9 sheep left.
+
+**Explanation of the Trick:**
+This problem tricks most people because of the phrasing "all but 9 run away." Many readers might misinterpret this to mean that 9 sheep run away, leading them to subtract 9 from 17 and conclude that 8 sheep are left. However, the correct interpretation is that all sheep except for 9 run away, meaning 9 sheep remain. The trick lies in the ambiguity of the phrase "all but," which can be confusing if not read carefully.

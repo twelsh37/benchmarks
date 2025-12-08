@@ -1,0 +1,47 @@
+To solve this problem, we need to create a function that identifies and returns elements from a list which appear more than once. This function will efficiently count the occurrences of each element using a dictionary and then compile a result list containing only those elements that meet the duplication criteria.
+
+### Approach
+1. **Problem Analysis**: The goal is to determine which elements in a given list occur at least twice. Each element should be included in the result only once, regardless of how many times it appears beyond two.
+2. **Intuition**: Using a dictionary to keep track of element frequencies allows us to efficiently count occurrences in linear time. This approach ensures that we process each element exactly once for counting and another pass through the unique elements to compile the results.
+3. **Algorithm Selection**: We use a dictionary where keys are the elements from the list, and values represent their counts. After populating this dictionary, we iterate through it to collect elements with counts greater than one.
+
+### Solution Code
+
+```python
+from typing import List, Dict, TypeVar
+
+T = TypeVar('T')
+
+def find_duplicates(lst: List[T]) -> List[T]:
+    """
+    Finds and returns a list of elements that appear more than once in the input list.
+    
+    Args:
+        lst: The input list to analyze for duplicate elements.
+        
+    Returns:
+        A list containing elements that appear two or more times in the input list.
+    """
+    freq: Dict[T, int] = {}
+    for item in lst:
+        if item in freq:
+            freq[item] += 1
+        else:
+            freq[item] = 1
+    
+    duplicates = [item for item in freq if freq[item] > 1]
+    return duplicates
+
+# Example usage:
+example_list = [1, 2, 3, 2, 4, 5, 5]
+print(find_duplicates(example_list))  # Output: [2, 5]
+```
+
+### Explanation
+- **Type Hints**: The function uses type hints to specify that it accepts a list of any hashable type and returns a list of the same type. This ensures clarity and helps with static type checking.
+- **Frequency Dictionary**: We initialize an empty dictionary `freq` to count occurrences of each element as we iterate through the input list.
+- **Counting Occurrences**: For each element in the list, we check if it already exists in the dictionary. If it does, we increment its count; otherwise, we add it with a count of one.
+- **Collecting Duplicates**: After counting all elements, we construct a result list by including only those elements whose count is greater than one.
+- **Efficiency**: This approach runs in O(n) time complexity where n is the number of elements in the input list, making it efficient for large datasets.
+
+This solution effectively addresses the problem requirements and provides clear documentation and examples to facilitate understanding.

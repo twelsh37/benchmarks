@@ -1,0 +1,7 @@
+ Let's solve this step-by-step:
+
+1. Initially, the farmer had 17 sheep.
+2. When all but 9 of them ran away, it means that only 9 did not run away.
+3. So, the farmer has 9 sheep left.
+
+The tricky part about this problem is that most people instinctively interpret "all but 9" to mean that exactly 9 stayed behind. However, in the given context, "all but 9" means all except for 9, so they ran away, leaving only the remaining 9 sheep with the farmer.

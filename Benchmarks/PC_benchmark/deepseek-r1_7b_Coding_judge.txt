@@ -1,0 +1,31 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The response correctly defines the function with appropriate logic using Counter to find elements appearing more than once, employs an efficient O(n) solution, and fully meets all specified requirements including type hints, docstring, and example usage.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The response correctly defines the function with appropriate logic using Counter to find elements appearing more than once, employs an efficient O(n) solution, and fully meets all specified requirements including type hints, docstring, and example usage."
+}
+``` 
+
+### Explanation
+
+**Correctness (Score: 10):**
+- The model's code defines a function `find_duplicates` that correctly identifies elements appearing more than once. 
+- It leverages Python's `Counter` to count occurrences efficiently.
+- The comprehension `[item for item, count in counts.items() if count > 1]` accurately collects duplicates.
+- No logic errors are present; it handles edge cases like an empty list or no duplicates.
+
+**Efficiency (Score: 10):**
+- Utilizes the `Counter` from the collections module to achieve O(n) time complexity, which is optimal for this problem. 
+- The approach efficiently counts occurrences in a single pass and then iterates over these counts.
+- Pythonic constructs like list comprehensions are used, ensuring readability and performance.
+
+**Outcome (Score: 10):**
+- Meets all five requirements: function name (`find_duplicates`), type hints (`List[Any]`), comprehensive docstring, an example usage demonstrating functionality, and working code.
+- The implementation is concise, with clear separation of concerns between counting frequencies and identifying duplicates. 
+
+The solution adheres to best practices in Python for clarity, efficiency, and correctness, making it a perfect response according to the provided criteria.

@@ -1,0 +1,16 @@
+To solve this problem, you need to gain enough information from a single pick of a fruit that allows you to correctly relabel all three boxes. Here’s how you can do it with the minimum amount of information:
+
+1. **Choose the 'Mixed' Box**: The key to solving this puzzle efficiently is to pick a fruit from the box labeled 'Mixed'. This choice gives us the most information because, by definition, a 'Mixed' box must contain more than one type of fruit if its label were correct. However, since we know each label is wrong, picking from this box gives us a chance to identify at least one fruit that doesn't belong in the other two boxes.
+
+2. **Determine the Fruit**: Let's say you pick an apple from the 'Mixed' box. Now, here’s what you can infer:
+   - Since the 'Apples' label is wrong and you picked an apple from the 'Mixed' box, the 'Apples' box cannot contain only apples (it could be oranges or mixed but not just apples).
+   - The 'Oranges' box also must be mislabeled since we know its contents can't match its label.
+
+3. **Relabeling Based on the Information**:
+   - If you picked an apple from the 'Mixed' box, this tells us that the actual 'Apples' (if there's a box of only apples) cannot be in the 'Apples' labeled box or the 'Mixed' box because we know the labels are wrong. Therefore, the 'Oranges' box must actually contain the apples since it’s the only option left for a single type of fruit to be mislabeled as something else.
+   - The 'Apples' box cannot have apples (since its label is wrong), and if you picked an apple from the 'Mixed', then this 'Mixed' box could indeed contain both types of fruits, making it actually mixed.
+   - This leaves us with the 'Oranges' labeled box being full of apples, the 'Apples' labeled box must be full of oranges (since its label is wrong and we've determined where the apples are), and the 'Mixed' labeled box contains a mix of both.
+
+This logic can be applied regardless of whether you pick an apple or an orange from the 'Mixed' box. The key insight here is recognizing that by picking from the 'Mixed' box, you gain information about two types of fruits at once because if it were truly mixed (which it's not since labels are wrong), picking one fruit type tells you something about the composition of the other boxes due to the constraints of the problem.
+
+In summary, picking one fruit from the 'Mixed' box gives you enough information to correctly relabel all three boxes because it allows you to infer the contents of the other two boxes based on the knowledge that each label is incorrect.

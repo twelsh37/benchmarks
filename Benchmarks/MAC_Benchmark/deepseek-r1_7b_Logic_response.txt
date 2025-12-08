@@ -1,0 +1,24 @@
+To solve the problem of determining which box holds apples or oranges when each box is incorrectly labeled, follow these steps:
+
+1. **Identify the Problem:** We have three boxes labeled 'Apples', 'Oranges', and 'Mixed'. All labels are incorrect.
+
+2. **Choose the Box Labeled 'Mixed':** Since this box cannot contain mixed fruits (as it's labeled incorrectly), it must contain only one type—either all Apples or all Oranges.
+
+3. **Pick a Fruit from This Box:** 
+   - If you pick an Apple, then this box contains only Apples.
+   - If you pick an Orange, then this box contains only Oranges.
+
+4. **Deduce the Contents of Other Boxes:**
+   - **Case 1:** If Box C (labeled 'Mixed') contains Apples:
+     - The box labeled 'Apples' cannot contain Apples; thus, it must have Oranges.
+     - The remaining box (labeled 'Oranges') cannot contain Oranges or Apples—so it must be Mixed.
+   - **Case 2:** If Box C (labeled 'Mixed') contains Oranges:
+     - The box labeled 'Oranges' cannot contain Oranges; thus, it must have Apples.
+     - The remaining box (labeled 'Apples') cannot contain Apples or Oranges—so it must be Mixed.
+
+5. **Conclusion:** By picking one fruit from the box labeled 'Mixed', you can determine its true contents and subsequently deduce the correct contents of all three boxes by elimination based on the incorrect labeling constraint.
+
+### Final Answer
+To determine which box holds what, pick one fruit from the box labeled as containing a mix. If it's an apple, then that box contains only apples; if it's an orange, that box contains only oranges. Using this information and knowing all labels are incorrect, you can deduce the contents of the other boxes accordingly.
+
+The answer is: \boxed{\text{Pick one fruit from the mixed box to determine its true content and deduce the rest based on incorrect labeling}}.

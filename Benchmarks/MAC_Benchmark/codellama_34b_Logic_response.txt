@@ -1,0 +1,18 @@
+
+This problem is a classic example of a "wrong-way" problem, where the given information is incorrect or misleading. The task is to correctly label the three boxes with fruits, even though the labels on the boxes are wrong.
+
+To solve this problem, we need to use logic and reasoning to determine which fruit belongs in each box. Here's a step-by-step approach:
+
+1. Observe that the 'Apples' box is labeled as 'Oranges'. This means that the box contains a fruit other than apples, but it could be either oranges or mixed fruit.
+2. The 'Oranges' box is labeled as 'Mixed'. This means that the box contains a mixture of fruits, but we can't tell which ones are included.
+3. The 'Mixed' box is labeled as 'Apples'. This means that the box contains a fruit other than mixed fruit, but it could be either apples or oranges.
+4. Since we know that the 'Apples' box is not labeled correctly, we can deduce that it must contain something other than apples. However, we don't know what that something is yet.
+5. We also know that the 'Oranges' box contains a mixture of fruits, but we don't know which specific fruits are included.
+6. Finally, we can deduce that the 'Mixed' box contains a fruit other than apples or mixed fruit, since it is labeled as such. However, we still don't know what that fruit is.
+7. At this point, we have enough information to correctly label all three boxes. We know that the 'Apples' box must contain something other than apples, but we don't know what that is yet. The 'Oranges' box contains a mixture of fruits, but we don't know which specific fruits are included. And the 'Mixed' box contains a fruit other than apples or mixed fruit.
+8. To solve this problem, we need to use logic and reasoning to determine which fruit belongs in each box. One possible solution is:
+	* The 'Apples' box contains oranges.
+	* The 'Oranges' box contains a mixture of apples and mixed fruit.
+	* The 'Mixed' box contains oranges.
+
+Therefore, the minimum information needed to correctly label all boxes is the fact that the labels on the boxes are incorrect, which allows us to use logic and reasoning to determine which fruit belongs in each box.

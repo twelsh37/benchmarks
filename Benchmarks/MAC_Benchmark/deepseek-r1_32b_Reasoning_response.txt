@@ -1,0 +1,24 @@
+**Solution:**
+
+Let's break down the problem step by step to find out how many sheep the farmer has left.
+
+1. **Total Sheep Initially:**  
+   The farmer starts with **17 sheep**.
+
+2. **Sheep that Ran Away:**  
+   The phrase "All but 9" means that **all except 9 sheep ran away**.  
+   
+3. **Calculating Remaining Sheep:**  
+   If all but 9 ran away, then the number of sheep remaining on the farm is:  
+   \[
+   17 - (17 - 9) = 9
+   \]
+
+4. **Final Answer:**  
+   The farmer has **\(\boxed{9}\)** sheep left.
+
+---
+
+**Why This Problem Tricks Most People:**
+
+The phrase "all but 9" can be misleading because it sounds like only a small number of sheep remain. However, the way it's phrased actually means that **only 9 sheep stayed behind**, not that 9 ran away. This plays on the tendency to misinterpret such phrases, leading many people to incorrectly assume fewer than 9 sheep are left or more sheep ran away than intended.

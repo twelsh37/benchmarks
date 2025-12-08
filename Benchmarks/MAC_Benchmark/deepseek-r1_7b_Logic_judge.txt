@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The response correctly identifies the 'Mixed' box to pick from, uses a single fruit to deduce all labels accurately, and provides a clear logical deduction chain without extraneous details.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The response correctly identifies the 'Mixed' box to pick from, uses a single fruit to deduce all labels accurately, and provides a clear logical deduction chain without extraneous details."
+}
+```

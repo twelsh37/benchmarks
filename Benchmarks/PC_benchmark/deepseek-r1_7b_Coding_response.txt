@@ -1,0 +1,39 @@
+To solve this problem, we need to write a Python function called `find_duplicates` that identifies elements in a list that appear more than once and returns a new list containing only those duplicates.
+
+### Approach
+1. **Count Frequencies**: Use the `Counter` class from the `collections` module to count the frequency of each element in the input list.
+2. **Identify Duplicates**: Iterate through the counted frequencies and collect elements that appear more than once.
+3. **Return Result**: Return a new list containing only those elements that meet the duplicate criteria.
+
+### Solution Code
+
+```python
+from typing import List
+from collections import Counter
+
+def find_duplicates(lst: List[Any]) -> List[Any]:
+    """
+    Finds elements in the input list that appear more than once and returns them in a new list.
+    
+    Args:
+        lst (List[Any]): The input list containing hashable elements.
+        
+    Returns:
+        List[Any]: A new list containing only the elements that appear more than once in the input list.
+    """
+    counts = Counter(lst)
+    duplicates = [item for item, count in counts.items() if count > 1]
+    return duplicates
+
+# Example usage
+if __name__ == "__main__":
+    example_list = [1, 2, 3, 2, 4, 5, 2]
+    print("Duplicates:", find_duplicates(example_list))
+```
+
+### Explanation
+- **Counting Frequencies**: The `Counter` class efficiently counts the occurrences of each element in the list.
+- **Identifying Duplicates**: Using a list comprehension, we iterate through the counted elements and collect those with a count greater than one.
+- **Returning Result**: The result is returned as a new list containing only the duplicated elements.
+
+The function includes type hints to specify that it accepts a list of any hashable type and returns a list of such types. The docstring provides clear documentation on the function's purpose, arguments, and return value. An example usage demonstrates how the function can be called with a sample list.

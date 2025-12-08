@@ -1,0 +1,12 @@
+Scores: Correctness=1, Efficiency=1, Outcome=1
+Reasoning: The response suggests picking a fruit from each box, which is incorrect. The correct approach involves picking only one fruit from the 'Mixed' labeled box to deduce all labels correctly.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 1,
+  "efficiency": 1,
+  "outcome": 1,
+  "reasoning": "The response suggests picking a fruit from each box, which is incorrect. The correct approach involves picking only one fruit from the 'Mixed' labeled box to deduce all labels correctly."
+}
+```

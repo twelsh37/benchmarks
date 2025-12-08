@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The response accurately states the correct answer and effectively explains why the problem is tricky. It correctly interprets 'all but' as excluding, not leaving zero sheep behind.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The response accurately states the correct answer and effectively explains why the problem is tricky. It correctly interprets 'all but' as excluding, not leaving zero sheep behind."
+}
+```

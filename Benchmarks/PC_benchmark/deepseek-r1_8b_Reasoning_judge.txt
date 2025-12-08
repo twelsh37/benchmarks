@@ -1,0 +1,12 @@
+Scores: Correctness=10, Efficiency=9, Outcome=10
+Reasoning: The response correctly states the answer is 9 and provides a clear explanation of why 'all but 9' means 9 remain, addressing both parts effectively. It's slightly less than perfect in efficiency due to minor redundancy but remains concise.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 9,
+  "outcome": 10,
+  "reasoning": "The response correctly states the answer is 9 and provides a clear explanation of why 'all but 9' means 9 remain, addressing both parts effectively. It's slightly less than perfect in efficiency due to minor redundancy but remains concise."
+}
+```

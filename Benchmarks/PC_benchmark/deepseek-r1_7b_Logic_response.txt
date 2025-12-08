@@ -1,0 +1,18 @@
+To determine the minimum number of fruits needed to be picked to correctly label all three boxes, we can follow this reasoning:
+
+1. We have three boxes labeled 'Apples', 'Oranges', and 'Mixed'. All labels are incorrect.
+2. The box labeled 'Mixed' cannot contain a mix of apples and oranges; it must contain only apples or only oranges.
+3. By picking one fruit from the box labeled 'Mixed', we can determine its true contents:
+   - If the picked fruit is an apple, then the box contains only apples.
+   - If the picked fruit is an orange, then the box contains only oranges.
+4. Once we know the contents of the box labeled 'Mixed', we can deduce the contents of the remaining two boxes (labeled 'Apples' and 'Oranges') based on the fact that all labels are incorrect.
+
+For example:
+- If the picked fruit from the box labeled 'Mixed' is an apple, then this box must contain only apples. The remaining boxes cannot be labeled correctly with their original labels, so the box labeled 'Apples' must contain oranges, and the box labeled 'Oranges' must contain mixed fruits.
+- Similarly, if the picked fruit is an orange, then this box must contain only oranges. The remaining boxes will be deduced accordingly.
+
+Thus, by picking just one fruit from the box labeled 'Mixed', we can determine the contents of all three boxes.
+
+\[
+\boxed{1}
+\]

@@ -1,0 +1,28 @@
+ Here is a Python function called `find_duplicates` with type hints, a docstring, and an example of its usage:
+
+```python
+from typing import List, Any
+
+def find_duplicates(data: List[Any]) -> List[Any]:
+    """
+    This function takes a list as input and returns a new list containing only the elements that appear more than once.
+
+    Args:
+        data (List[Any]): The input list.
+
+    Returns:
+        List[Any]: A new list with duplicated elements.
+    """
+    duplicates = []
+    for element in data:
+        if data.count(element) > 1 and element not in duplicates:
+            duplicates.append(element)
+    return duplicates
+
+# Example usage
+numbers = [1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 5]
+duplicates = find_duplicates(numbers)
+print(duplicates)  # Output: [5, 5, 9]
+```
+
+In the example above, the `find_duplicates` function is called with a list of numbers containing duplicates. The function processes the input and returns only the duplicate elements in a new list.

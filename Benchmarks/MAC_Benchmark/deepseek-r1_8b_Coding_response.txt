@@ -1,0 +1,35 @@
+To solve this problem, we need to write a Python function that takes a list and returns a new list containing only the elements that appear more than once. The solution involves counting the frequency of each element in the input list and then filtering out elements that appear only once.
+
+### Approach
+1. **Count Frequencies**: Use a dictionary to count how many times each element appears in the input list. This helps in identifying elements that occur more than once.
+2. **Filter Elements**: Iterate through the dictionary and collect elements that have a count greater than 1. These elements are the duplicates.
+3. **Return Result**: Return the list of duplicate elements. The order of elements in the result is based on their first occurrence in the input list.
+
+### Solution Code
+```python
+from typing import List
+
+def find_duplicates(lst: List) -> List:
+    """
+    Returns a new list containing only the elements that appear more than once in the input list.
+    
+    Args:
+        lst (List): The input list containing elements to be checked for duplicates.
+        
+    Returns:
+        List: A list of elements that appear more than once, in the order of their first occurrence.
+    """
+    count_dict = {}
+    for element in lst:
+        count_dict[element] = count_dict.get(element, 0) + 1
+        
+    duplicates = [element for element, count in count_dict.items() if count > 1]
+    return duplicates
+```
+
+### Example
+```python
+print(find_duplicates([1, 2, 3, 2, 1, 4]))  # Output: [1, 2]
+```
+
+This example demonstrates that the function correctly identifies elements appearing more than once and returns them in the order of their first occurrence in the input list.

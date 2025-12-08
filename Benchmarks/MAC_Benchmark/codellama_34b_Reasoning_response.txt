@@ -1,0 +1,4 @@
+
+The farmer has 8 sheep left.
+
+This problem tricks most people because it is a classic example of a "brain teaser" or "riddle." The solution may seem counterintuitive at first, but it is based on a careful reading of the information provided in the problem statement.

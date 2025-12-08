@@ -1,0 +1,13 @@
+ Let's approach this problem step by step:
+
+1. Since all labels are wrong, we know that 'Apples' cannot be the box containing apples, 'Oranges' cannot contain oranges, and 'Mixed' cannot contain a mixed bag.
+
+2. We pick one fruit from one of the boxes without looking (let's say we pick an apple). Now we know that the box with the label 'Apples' cannot be the box containing apples, so it must contain either oranges or the mixed bag.
+
+3. Since all labels are wrong and there are only three boxes, the box labeled 'Oranges' has to contain apples (by process of elimination), and the box with the label 'Mixed' must contain the actual mixed bag.
+
+4. Now we are left with one remaining box, which must be the box containing oranges because all other possibilities have been eliminated.
+
+5. So, after picking just one fruit (an apple), we can correctly label all three boxes.
+
+Therefore, to minimize information needed, you only need to pick one fruit from one box to correctly label all three boxes.

@@ -1,0 +1,27 @@
+Scores: Correctness=10, Efficiency=10, Outcome=10
+Reasoning: The function correctly implements the logic to find elements appearing more than once, uses a dictionary for O(n) efficiency, and meets all requirements including type hints, docstring, and an example call.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 10,
+  "efficiency": 10,
+  "outcome": 10,
+  "reasoning": "The function correctly implements the logic to find elements appearing more than once, uses a dictionary for O(n) efficiency, and meets all requirements including type hints, docstring, and an example call."
+}
+```
+
+### Reasoning:
+
+1. **Correctness**: The code works perfectly as it identifies elements that appear more than once in the input list. The use of `count_dict` to count occurrences is correct and efficient, ensuring only those with counts greater than one are returned.
+
+2. **Efficiency**: The solution uses a dictionary (`count_dict`) to achieve an O(n) complexity, which is optimal for this problem. This approach efficiently counts occurrences in a single pass and then filters the duplicates in another pass.
+
+3. **Outcome**: All required elements are met:
+   - Function name: `find_duplicates`
+   - Type hints: Correctly included
+   - Docstring: Well-written and informative
+   - Working example: Provided with correct output
+   - The code is clean, functional, and adheres to Pythonic standards.
+
+Overall, the response meets all criteria for a perfect score.

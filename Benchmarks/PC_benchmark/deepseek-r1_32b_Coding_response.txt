@@ -1,0 +1,39 @@
+To solve this problem, we need to identify and return a list of elements that appear more than once in the given input list. The goal is to ensure each duplicate element appears only once in the result and maintains the order based on their first occurrence.
+
+### Approach
+The approach involves two main passes through the input list:
+
+1. **Counting Occurrences**: In the first pass, we count how many times each element appears using a dictionary. This helps us determine which elements are duplicates.
+2. **Building the Result**: In the second pass, we iterate through the input list again and collect elements that have been counted more than once. We use a set to keep track of elements already added to the result to ensure each duplicate is only included once.
+
+This method ensures that the result maintains the order of the first occurrence of each duplicate element.
+
+### Solution Code
+
+```python
+from collections import defaultdict
+
+def find_duplicates(lst):
+    count = defaultdict(int)
+    result = []
+    seen_in_result = set()
+
+    # First pass: Count occurrences of each element
+    for num in lst:
+        count[num] += 1
+
+    # Second pass: Build the result list with duplicates, ensuring order and no repeats
+    for num in lst:
+        if count[num] > 1 and num not in seen_in_result:
+            result.append(num)
+            seen_in_result.add(num)
+
+    return result
+```
+
+### Explanation
+- **Counting Occurrences**: We use a `defaultdict` from the `collections` module to keep track of how many times each element appears. This is efficient as it handles missing keys gracefully and ensures we can increment counts without checking if the key exists.
+  
+- **Building the Result**: After counting, we iterate through the original list again. For each element, if its count is more than one and it hasn't been added to the result yet (checked using a set for O(1) lookups), we add it to the result list and mark it as seen.
+
+This approach ensures that we efficiently determine duplicates in linear time, making it optimal for large lists. The use of a set guarantees that each duplicate is only included once in the result while maintaining their order of first occurrence.

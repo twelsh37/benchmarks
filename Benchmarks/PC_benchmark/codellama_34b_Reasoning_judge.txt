@@ -1,0 +1,12 @@
+Scores: Correctness=1, Efficiency=3, Outcome=1
+Reasoning: The response provides an incorrect answer of 8 sheep, fundamentally misunderstanding the phrase 'all but 9.' The reasoning is flawed and fails to correctly interpret the problem.
+
+Raw Judge Response:
+```json
+{
+  "correctness": 1,
+  "efficiency": 3,
+  "outcome": 1,
+  "reasoning": "The response provides an incorrect answer of 8 sheep, fundamentally misunderstanding the phrase 'all but 9.' The reasoning is flawed and fails to correctly interpret the problem."
+}
+```

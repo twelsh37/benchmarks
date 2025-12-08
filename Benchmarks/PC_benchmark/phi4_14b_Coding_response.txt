@@ -1,0 +1,42 @@
+Here's a Python function `find_duplicates` with type hints and a docstring. This function takes a list as input and returns a new list containing only the elements that appear more than once in the original list.
+
+```python
+from typing import List
+
+def find_duplicates(input_list: List) -> List:
+    """
+    Returns a list of duplicate elements from the given list.
+    
+    Parameters:
+    - input_list (List): A list of elements where duplicates may exist.
+    
+    Returns:
+    - List: A new list containing only the elements that appear more than once in the original list.
+    
+    Example:
+    >>> find_duplicates([1, 2, 3, 2, 4, 5, 6, 5])
+    [2, 5]
+    """
+    # Dictionary to count occurrences of each element
+    counts = {}
+    for item in input_list:
+        if item in counts:
+            counts[item] += 1
+        else:
+            counts[item] = 1
+    
+    # Collect elements that appear more than once
+    duplicates = [item for item, count in counts.items() if count > 1]
+    
+    return duplicates
+
+# Example of calling the function
+example_list = [1, 2, 3, 2, 4, 5, 6, 5]
+duplicates = find_duplicates(example_list)
+print(duplicates)  # Output: [2, 5]
+```
+
+In this implementation:
+- A dictionary `counts` is used to track the number of occurrences for each element.
+- The function iterates over the input list and updates the count in the dictionary.
+- Finally, a list comprehension is used to create a list of elements that have more than one occurrence.

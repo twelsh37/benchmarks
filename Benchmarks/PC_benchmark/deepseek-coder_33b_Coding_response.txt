@@ -1,0 +1,36 @@
+Here is how you could do it using Python:
+
+```python
+from typing import List, Any
+
+def find_duplicates(input_list: List[Any]) -> List[Any]:
+    """Find and return all elements in a list that appear more than once.
+    
+    Parameters:
+    input_list (List[Any]): The list to search for duplicates.
+    
+    Returns:
+    List[Any]: A new list containing only the duplicate elements.
+    """
+    # Create an empty dictionary to store element counts
+    count_dict = {}
+
+    # Iterate over each element in input_list and update count_dict
+    for elem in input_list:
+        if elem not in count_dict:
+            count_dict[elem] = 1
+        else:
+            count_dict[elem] += 1
+    
+    # Create a new list to store duplicate elements
+    duplicates = [k for k, v in count_dict.items() if v > 1]
+
+    return duplicates
+```
+
+Here is an example of calling it:
+
+```python
+>>> find_duplicates([1, 2, 3, 2, 4, 5, 4, 6, 7, 8, 9, 9, 10])
+[2, 4, 9]
+```

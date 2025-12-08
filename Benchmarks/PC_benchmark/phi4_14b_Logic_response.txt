@@ -1,0 +1,29 @@
+To solve this problem, you need to use the fact that each label on the boxes is incorrect. Here's how you can correctly label all the boxes with a minimum of picking just one fruit:
+
+1. **Identify the Box Labeled 'Mixed':** Since all labels are wrong, the box labeled 'Mixed' cannot contain both apples and oranges; it must contain only one type of fruit (either only apples or only oranges).
+
+2. **Pick a Fruit from the 'Mixed' Box:** Suppose you pick a fruit from the box labeled 'Mixed'. There are two possibilities:
+   - If you draw an apple, this means the box contains only apples.
+   - If you draw an orange, this means the box contains only oranges.
+
+3. **Relabel the 'Mixed' Box:**
+   - If you drew an apple, relabel the 'Mixed' box as 'Apples'.
+   - If you drew an orange, relabel the 'Mixed' box as 'Oranges'.
+
+4. **Determine the Remaining Boxes:**
+   - Now consider the two remaining boxes:
+     - One is labeled 'Apples', and the other is labeled 'Oranges'. Remember, these labels are also incorrect.
+   
+5. **Use Process of Elimination:**
+   - Suppose you found that the 'Mixed' box actually contains apples (from step 3). The box labeled 'Apples' cannot contain only apples (since its label is wrong), so it must be the 'Mixed' box containing both fruits.
+   - Consequently, the box labeled 'Oranges' must contain only oranges.
+
+6. **Relabel the Remaining Boxes:**
+   - If the original 'Mixed' box contained apples:
+     - Relabel the box originally labeled 'Apples' as 'Mixed'.
+     - Relabel the box originally labeled 'Oranges' as 'Oranges'.
+   - Conversely, if the original 'Mixed' box contained oranges:
+     - Relabel the box originally labeled 'Oranges' as 'Mixed'.
+     - Relabel the box originally labeled 'Apples' as 'Apples'.
+
+By picking just one fruit from the box labeled 'Mixed', you can correctly determine and relabel all three boxes. This method leverages the incorrect labeling to deduce the correct contents of each box efficiently.

@@ -1,0 +1,71 @@
+```python
+from typing import List, TypeVar
+
+T = TypeVar('T')
+
+def find_duplicates(lst: List[T]) -> List[T]:
+    """
+    Find all elements that appear more than once in the input list.
+    
+    Args:
+        lst: A list of elements of any type
+        
+    Returns:
+        A new list containing only the elements that appear more than once,
+        preserving their original order of first occurrence
+        
+    Example:
+        >>> find_duplicates([1, 2, 3, 2, 4, 5, 3])
+        [2, 3]
+        >>> find_duplicates(['a', 'b', 'c', 'b', 'a'])
+        ['a', 'b']
+    """
+    seen = set()
+    duplicates = set()
+    
+    for item in lst:
+        if item in seen:
+            duplicates.add(item)
+        else:
+            seen.add(item)
+    
+    # Return duplicates in order of first appearance
+    result = []
+    seen_first = set()
+    
+    for item in lst:
+        if item in duplicates and item not in seen_first:
+            result.append(item)
+            seen_first.add(item)
+    
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    # Test with numbers
+    numbers = [1, 2, 3, 2, 4, 5, 3, 6, 1]
+    print(f"Original list: {numbers}")
+    print(f"Duplicates: {find_duplicates(numbers)}")
+    
+    # Test with strings
+    words = ['apple', 'banana', 'apple', 'cherry', 'banana', 'date']
+    print(f"\nOriginal list: {words}")
+    print(f"Duplicates: {find_duplicates(words)}")
+    
+    # Test with no duplicates
+    unique = [1, 2, 3, 4, 5]
+    print(f"\nOriginal list: {unique}")
+    print(f"Duplicates: {find_duplicates(unique)}")
+```
+
+Output:
+```
+Original list: [1, 2, 3, 2, 4, 5, 3, 6, 1]
+Duplicates: [1, 2, 3]
+
+Original list: ['apple', 'banana', 'apple', 'cherry', 'banana', 'date']
+Duplicates: ['apple', 'banana']
+
+Original list: [1, 2, 3, 4, 5]
+Duplicates: []
+```

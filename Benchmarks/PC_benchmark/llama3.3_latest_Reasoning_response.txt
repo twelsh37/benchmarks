@@ -1,0 +1,12 @@
+Let's break it down step by step:
+
+1. The farmer starts with 17 sheep.
+2. "All but 9" run away, which means that 9 sheep stay behind, and the rest (17 - 9 = 8) run away.
+
+So, how many sheep does the farmer have left? The answer is: **9**.
+
+Now, let's talk about why this problem tricks most people. When we hear "all but 9" run away, our instinct is to subtract 9 from the total number of sheep (17). This would lead us to think that 8 sheep ran away and the farmer has 17 - 8 = 9 sheep left. However, the correct interpretation is that "all but 9" means all the sheep except for 9 run away.
+
+The problem tricks people because it uses a double negative: "all" (meaning everyone/everything) and "but" (which is an exception). This double negative can be confusing, especially when combined with the fact that we're used to thinking in terms of subtraction. Our brains tend to default to the more straightforward calculation (17 - 9), rather than taking a moment to carefully consider the meaning of "all but".
+
+This type of problem is often referred to as a "brain teaser" or a "lateral thinking puzzle", designed to test our ability to think critically and avoid assumptions. By slowing down and breaking it down step by step, we can arrive at the correct answer: 9 sheep are left behind!
